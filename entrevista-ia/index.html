@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Ookini - Café de Especialidad & Kyoto Drip</title>
+		<style>
+			/* ==========================================================================
+           1. VARIABLES Y DISEÑO BASE (Inspiración Kioto / Wabi-Sabi Moderno)
+           ========================================================================== */
+			:root {
+				--bg-primary: #fcfbf7;
+				--bg-surface: #ffffff;
+				--bg-alt: #f4f1ea;
+				--text-main: #2b2725;
+				--text-muted: #6b645f;
+				--accent-matcha: #4a5d4e;
+				--accent-warm: #c86d51;
+				--accent-gold: #d4a359;
+				--border-color: #e6e1d7;
+				--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+				--shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+				--radius-md: 12px;
+				--radius-lg: 16px;
+				--font-family:
+					system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+					Oxygen, Ubuntu, Cantarell, sans-serif;
+			}
+
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				background-color: var(--bg-primary);
+				color: var(--text-main);
+				font-family: var(--font-family);
+				line-height: 1.6;
+				scroll-behavior: smooth;
+			}
+
+			.container {
+				max-width: 1100px;
+				margin: 0 auto;
+				padding: 0 20px;
+			}
+
+			/* ==========================================================================
+           2. HEADER & NAVEGACIÓN
+           ========================================================================== */
+			header {
+				background-color: rgba(252, 251, 247, 0.95);
+				backdrop-filter: blur(8px);
+				position: sticky;
+				top: 0;
+				z-index: 100;
+				border-bottom: 1px solid var(--border-color);
+			}
+
+			.nav-container {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				height: 70px;
+			}
+
+			.logo-container {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				text-decoration: none;
+				color: var(--text-main);
+			}
+
+			.logo-kanji {
+				background-color: var(--accent-warm);
+				color: white;
+				width: 38px;
+				height: 38px;
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-weight: bold;
+				font-size: 1.2rem;
+			}
+
+			.logo-text {
+				font-size: 1.4rem;
+				font-weight: 700;
+				letter-spacing: -0.5px;
+			}
+
+			.logo-sub {
+				font-size: 0.75rem;
+				color: var(--text-muted);
+				display: block;
+				margin-top: -4px;
+			}
+
+			nav ul {
+				display: flex;
+				list-style: none;
+				gap: 24px;
+			}
+
+			nav a {
+				text-decoration: none;
+				color: var(--text-muted);
+				font-weight: 500;
+				font-size: 0.95rem;
+				transition: color 0.2s;
+			}
+
+			nav a:hover {
+				color: var(--accent-warm);
+			}
+
+			.badge-hours {
+				background-color: var(--bg-alt);
+				border: 1px solid var(--border-color);
+				padding: 6px 12px;
+				border-radius: 20px;
+				font-size: 0.8rem;
+				color: var(--accent-matcha);
+				font-weight: 600;
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
+			}
+
+			.badge-hours::before {
+				content: "";
+				width: 8px;
+				height: 8px;
+				background-color: #2e7d32;
+				border-radius: 50%;
+				display: inline-block;
+			}
+
+			/* ==========================================================================
+           3. HERO SECTION
+           ========================================================================== */
+			.hero {
+				padding: 80px 0 60px;
+				text-align: center;
+				background: linear-gradient(
+					180deg,
+					var(--bg-primary) 0%,
+					var(--bg-alt) 100%
+				);
+				border-bottom: 1px solid var(--border-color);
+			}
+
+			.hero-title {
+				font-size: 2.8rem;
+				line-height: 1.2;
+				margin-bottom: 16px;
+				color: var(--text-main);
+			}
+
+			.hero-title span {
+				color: var(--accent-warm);
+			}
+
+			.hero-description {
+				max-width: 680px;
+				margin: 0 auto 32px;
+				color: var(--text-muted);
+				font-size: 1.1rem;
+			}
+
+			.hero-stats {
+				display: flex;
+				justify-content: center;
+				gap: 32px;
+				margin-top: 40px;
+				flex-wrap: wrap;
+			}
+
+			.stat-card {
+				background: var(--bg-surface);
+				padding: 16px 24px;
+				border-radius: var(--radius-md);
+				border: 1px solid var(--border-color);
+				box-shadow: var(--shadow-sm);
+				min-width: 200px;
+			}
+
+			.stat-number {
+				font-size: 1.8rem;
+				font-weight: 700;
+				color: var(--accent-matcha);
+			}
+
+			.stat-label {
+				font-size: 0.85rem;
+				color: var(--text-muted);
+			}
+
+			/* ==========================================================================
+           4. SECCIÓN MENÚ Y MÉTODOS
+           ========================================================================== */
+			.section-title {
+				text-align: center;
+				font-size: 2rem;
+				margin: 60px 0 12px;
+			}
+
+			.section-subtitle {
+				text-align: center;
+				color: var(--text-muted);
+				margin-bottom: 40px;
+			}
+
+			.grid-methods {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+				gap: 24px;
+				margin-bottom: 60px;
+			}
+
+			.card-method {
+				background: var(--bg-surface);
+				border-radius: var(--radius-lg);
+				padding: 24px;
+				border: 1px solid var(--border-color);
+				box-shadow: var(--shadow-sm);
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				transition:
+					transform 0.2s,
+					box-shadow 0.2s;
+				position: relative;
+			}
+
+			.card-method:hover {
+				transform: translateY(-4px);
+				box-shadow: var(--shadow-md);
+			}
+
+			.card-tag {
+				position: absolute;
+				top: 16px;
+				right: 16px;
+				font-size: 0.75rem;
+				padding: 4px 8px;
+				border-radius: 4px;
+				font-weight: 600;
+				text-transform: uppercase;
+			}
+
+			.tag-walkin {
+				background-color: #e8f5e9;
+				color: #2e7d32;
+			}
+
+			.tag-special {
+				background-color: #fbe9e7;
+				color: #d84315;
+			}
+
+			.method-title {
+				font-size: 1.3rem;
+				margin-bottom: 8px;
+				margin-top: 8px;
+			}
+
+			.method-price {
+				font-size: 1.5rem;
+				font-weight: 700;
+				color: var(--accent-warm);
+				margin-bottom: 12px;
+			}
+
+			.method-desc {
+				font-size: 0.9rem;
+				color: var(--text-muted);
+				margin-bottom: 20px;
+			}
+
+			/* ==========================================================================
+           5. SECCIÓN DE RESERVAS E INTERACCIÓN
+           ========================================================================== */
+			.reservation-container {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 40px;
+				margin-bottom: 80px;
+			}
+
+			@media (max-width: 768px) {
+				.reservation-container {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			.box-panel {
+				background: var(--bg-surface);
+				border: 1px solid var(--border-color);
+				border-radius: var(--radius-lg);
+				padding: 32px;
+				box-shadow: var(--shadow-sm);
+			}
+
+			.panel-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 24px;
+				padding-bottom: 12px;
+				border-bottom: 1px solid var(--border-color);
+			}
+
+			.counter-badge {
+				background-color: var(--bg-alt);
+				padding: 6px 12px;
+				border-radius: 8px;
+				font-size: 0.85rem;
+				font-weight: 600;
+			}
+
+			.form-group {
+				margin-bottom: 20px;
+			}
+
+			.form-group label {
+				display: block;
+				margin-bottom: 8px;
+				font-weight: 600;
+				font-size: 0.9rem;
+			}
+
+			.form-control {
+				width: 100%;
+				padding: 12px;
+				border: 1px solid var(--border-color);
+				border-radius: var(--radius-md);
+				background-color: var(--bg-primary);
+				font-size: 0.95rem;
+				font-family: inherit;
+			}
+
+			.form-control:focus {
+				outline: none;
+				border-color: var(--accent-warm);
+			}
+
+			.btn {
+				display: inline-block;
+				width: 100%;
+				padding: 14px;
+				border: none;
+				border-radius: var(--radius-md);
+				font-size: 1rem;
+				font-weight: 600;
+				cursor: pointer;
+				transition:
+					background-color 0.2s,
+					opacity 0.2s;
+				text-align: center;
+			}
+
+			.btn-primary {
+				background-color: var(--accent-warm);
+				color: white;
+			}
+
+			.btn-primary:hover {
+				background-color: #b35b41;
+			}
+
+			.btn-secondary {
+				background-color: var(--accent-matcha);
+				color: white;
+			}
+
+			.btn-secondary:hover {
+				background-color: #3b4a3e;
+			}
+
+			.btn:disabled {
+				background-color: #ccc;
+				cursor: not-allowed;
+				opacity: 0.7;
+			}
+
+			/* Notifications / Feedback Messages */
+			.msg-box {
+				padding: 12px 16px;
+				border-radius: var(--radius-md);
+				font-size: 0.9rem;
+				margin-top: 16px;
+				display: none;
+			}
+
+			.msg-box.success {
+				display: block;
+				background-color: #e8f5e9;
+				color: #2e7d32;
+				border: 1px solid #a5d6a7;
+			}
+
+			.msg-box.error {
+				display: block;
+				background-color: #ffebee;
+				color: #c62828;
+				border: 1px solid #ef9a9a;
+			}
+
+			/* ==========================================================================
+           6. FOOTER
+           ========================================================================== */
+			footer {
+				background-color: var(--bg-alt);
+				border-top: 1px solid var(--border-color);
+				padding: 40px 0 20px;
+				margin-top: auto;
+			}
+
+			.footer-content {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 20px;
+				margin-bottom: 20px;
+			}
+
+			.footer-logo {
+				font-size: 1.2rem;
+				font-weight: 700;
+			}
+
+			.footer-copy {
+				text-align: center;
+				font-size: 0.85rem;
+				color: var(--text-muted);
+				padding-top: 20px;
+				border-top: 1px solid var(--border-color);
+			}
+		</style>
+	</head>
+	<body>
+		<!-- ==========================================================================
+       HEADER Y BARRA DE NAVEGACIÓN
+       ========================================================================== -->
+		<header>
+			<div class="container nav-container">
+				<a href="#" class="logo-container">
+					<div class="logo-kanji">大</div>
+					<div>
+						<span class="logo-text">Ookini</span>
+						<span class="logo-sub">Kyoto Specialty Coffee</span>
+					</div>
+				</a>
+				<nav>
+					<ul>
+						<li><a href="#menu">Menú</a></li>
+						<li><a href="#reservas">Reservas Especiales</a></li>
+						<li><a href="#cata">Cata Semanal</a></li>
+					</ul>
+				</nav>
+				<div class="badge-hours">Abierto: 8:00 AM - 8:00 PM</div>
+			</div>
+		</header>
+
+		<!-- ==========================================================================
+       HERO / INTRODUCCIÓN
+       ========================================================================== -->
+		<section class="hero">
+			<div class="container">
+				<h1 class="hero-title">
+					El arte del café lento, inspirado en <span>Kioto</span>
+				</h1>
+				<p class="hero-description">
+					"Ookini" significa <em>gracias</em> en el dialecto de Kansai. En honor
+					a la cuna del método Kyoto Drip, rendimos culto a las extracciones
+					lentas, la precisión y la hospitalidad japonesa.
+				</p>
+
+				<div class="hero-stats">
+					<div class="stat-card">
+						<div class="stat-number" id="hero-stock-counter">50</div>
+						<div class="stat-label">Tazas especiales / día</div>
+					</div>
+					<div class="stat-card">
+						<div class="stat-number">2 Tazas</div>
+						<div class="stat-label">Límite por persona</div>
+					</div>
+					<div class="stat-card">
+						<div class="stat-number" id="hero-cata-counter">8</div>
+						<div class="stat-label">Cupos cata semanal</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ==========================================================================
+       SECCIÓN DE MÉTODOS Y PRECIOS
+       ========================================================================== -->
+		<main class="container">
+			<section id="menu">
+				<h2 class="section-title">Nuestros Métodos</h2>
+				<p class="section-subtitle">
+					Selección artesanal preparada al momento por nuestros baristas
+				</p>
+
+				<div class="grid-methods">
+					<!-- Prensa Francesa (Walk-in) -->
+					<div class="card-method">
+						<span class="card-tag tag-walkin">Walk-in</span>
+						<div>
+							<h3 class="method-title">Prensa Francesa</h3>
+							<div class="method-price">$3.00</div>
+							<p class="method-desc">
+								Cuerpo completo, aceites naturales preservados y extracción
+								constante. Disponible sin reserva todo el día.
+							</p>
+						</div>
+					</div>
+
+					<!-- V60 (Especial) -->
+					<div class="card-method">
+						<span class="card-tag tag-special">Reserva</span>
+						<div>
+							<h3 class="method-title">V60 Pour-over</h3>
+							<div class="method-price">$5.00</div>
+							<p class="method-desc">
+								Taza limpia, resalta las notas ácidas y frutales de nuestros
+								granos de origen único. Preparación metódica.
+							</p>
+						</div>
+					</div>
+
+					<!-- Kyoto Drip (Especial) -->
+					<div class="card-method">
+						<span class="card-tag tag-special">Reserva</span>
+						<div>
+							<h3 class="method-title">Kyoto Drip</h3>
+							<div class="method-price">$7.00</div>
+							<p class="method-desc">
+								Gota a gota en frío durante 8 a 12 horas. Licoroso, dulce,
+								complejo y con baja acidez. Nuestra especialidad.
+							</p>
+						</div>
+					</div>
+
+					<!-- Siphon (Especial) -->
+					<div class="card-method">
+						<span class="card-tag tag-special">Reserva</span>
+						<div>
+							<h3 class="method-title">Siphon Japonés</h3>
+							<div class="method-price">$8.00</div>
+							<p class="method-desc">
+								Extracción por vacío mediante infusión de vapor. Un espectáculo
+								visual que produce una taza limpia y sedosa.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ==========================================================================
+           SECCIÓN DE RESERVAS Y LÓGICA DE NEGOCIO (JS INTERACTION)
+           ========================================================================== -->
+			<section id="reservas">
+				<h2 class="section-title">Módulo de Reservas</h2>
+				<p class="section-subtitle">
+					Garantiza tu experiencia aplicando las reglas diarias de la barra
+				</p>
+
+				<div class="reservation-container">
+					<!-- MÓDULO 1: RESERVA DE PREPARACIONES ESPECIALES -->
+					<div class="box-panel">
+						<div class="panel-header">
+							<h3>Preparaciones Especiales</h3>
+							<div class="counter-badge">
+								Quedan <span id="stock-especial-num">50</span>/50 tazas hoy
+							</div>
+						</div>
+
+						<form id="form-reserva-especial">
+							<div class="form-group">
+								<label for="metodo-select">Método de Filtrado</label>
+								<select id="metodo-select" class="form-control" required>
+									<option value="" disabled selected>
+										Selecciona un método
+									</option>
+									<option value="V60">V60 ($5.00)</option>
+									<option value="Kyoto drip">Kyoto drip ($7.00)</option>
+									<option value="Siphon">Siphon ($8.00)</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="cantidad-tazas"
+									>Cantidad de Tazas (Máx. 2 por persona)</label
+								>
+								<input
+									type="number"
+									id="cantidad-tazas"
+									class="form-control"
+									min="1"
+									max="2"
+									value="1"
+									required
+								/>
+							</div>
+
+							<div class="form-group">
+								<label for="nombre-cliente">Nombre de la Reserva</label>
+								<input
+									type="text"
+									id="nombre-cliente"
+									class="form-control"
+									placeholder="Ej. Kenji Sato"
+									required
+								/>
+							</div>
+
+							<button
+								type="submit"
+								id="btn-reservar-especial"
+								class="btn btn-primary"
+							>
+								Reservar Preparación
+							</button>
+						</form>
+
+						<div id="msg-reserva-especial" class="msg-box"></div>
+					</div>
+
+					<!-- MÓDULO 2: RESERVA CATA SEMANAL -->
+					<div class="box-panel" id="cata">
+						<div class="panel-header">
+							<h3>Cata Semanal</h3>
+							<div class="counter-badge">
+								Cupos disponibles: <span id="cupos-cata-num">8</span>/8
+							</div>
+						</div>
+
+						<p
+							style="
+								font-size: 0.9rem;
+								color: var(--text-muted);
+								margin-bottom: 20px;
+							"
+						>
+							Experiencia guiada de degustación de 5 varietales raros de Kioto.
+							Incluye maridaje. Precio: <strong>$25.00 / persona</strong>.
+						</p>
+
+						<form id="form-reserva-cata">
+							<div class="form-group">
+								<label for="cupos-cata">Número de Asistentes</label>
+								<input
+									type="number"
+									id="cupos-cata"
+									class="form-control"
+									min="1"
+									max="8"
+									value="1"
+									required
+								/>
+							</div>
+
+							<div class="form-group">
+								<label for="nombre-cata">Nombre Principal</label>
+								<input
+									type="text"
+									id="nombre-cata"
+									class="form-control"
+									placeholder="Ej. Akane Toba"
+									required
+								/>
+							</div>
+
+							<button
+								type="submit"
+								id="btn-reservar-cata"
+								class="btn btn-secondary"
+							>
+								Reservar Cupo(s) en Cata
+							</button>
+						</form>
+
+						<div id="msg-reserva-cata" class="msg-box"></div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+		<footer>
+			<div class="container">
+				<div class="footer-content">
+					<div>
+						<div class="footer-logo">Ookini Specialty Coffee</div>
+						<p style="font-size: 0.85rem; color: var(--text-muted)">
+							Inspiración Kioto • Métodos artesanales
+						</p>
+					</div>
+					<div style="font-size: 0.9rem; color: var(--text-muted)">
+						<strong>Horario:</strong> Lunes a Domingo de 8:00 a.m. a 8:00 p.m.
+					</div>
+				</div>
+				<div class="footer-copy">
+					<p>&copy; 2026 Ookini Coffee. Todos los derechos reservados.</p>
+				</div>
+			</div>
+		</footer>
+
+		<!-- ==========================================================================
+       7. JAVASCRIPT VANILLA - LÓGICA DEL NEGOCIO
+       ========================================================================== -->
+		<script>
+			// --- REGLAS Y ESTADO DEL NEGOCIO ---
+			const PRECIOS = {
+				V60: 5,
+				"Kyoto drip": 7,
+				Siphon: 8,
+				"Prensa francesa": 3,
+				Cata: 25,
+			};
+
+			const LIMITE_MAX_DIARIO_ESPECIALES = 50;
+			const LIMITE_MAX_POR_PERSONA = 2;
+			const LIMITE_MAX_CATA = 8;
+
+			// Estado inicial de stock/disponibilidad
+			let tazasEspecialesRestantes = LIMITE_MAX_DIARIO_ESPECIALES;
+			let cuposCataRestantes = LIMITE_MAX_CATA;
+
+			// --- ELEMENTOS DEL DOM ---
+			// Contadores
+			const stockEspecialEl = document.getElementById("stock-especial-num");
+			const heroStockCounterEl = document.getElementById("hero-stock-counter");
+			const cuposCataEl = document.getElementById("cupos-cata-num");
+			const heroCataCounterEl = document.getElementById("hero-cata-counter");
+
+			// Formulario Especial
+			const formEspecial = document.getElementById("form-reserva-especial");
+			const metodoSelect = document.getElementById("metodo-select");
+			const cantidadTazasInput = document.getElementById("cantidad-tazas");
+			const nombreClienteInput = document.getElementById("nombre-cliente");
+			const btnEspecial = document.getElementById("btn-reservar-especial");
+			const msgEspecial = document.getElementById("msg-reserva-especial");
+
+			// Formulario Cata
+			const formCata = document.getElementById("form-reserva-cata");
+			const cuposCataInput = document.getElementById("cupos-cata");
+			const nombreCataInput = document.getElementById("nombre-cata");
+			const btnCata = document.getElementById("btn-reservar-cata");
+			const msgCata = document.getElementById("msg-reserva-cata");
+
+			// --- FUNCIONES AUXILIARES ---
+			function actualizarUI() {
+				// Actualizar stock de especiales
+				stockEspecialEl.textContent = tazasEspecialesRestantes;
+				heroStockCounterEl.textContent = tazasEspecialesRestantes;
+
+				// Actualizar cupos de cata
+				cuposCataEl.textContent = cuposCataRestantes;
+				heroCataCounterEl.textContent = cuposCataRestantes;
+
+				// Deshabilitar botón si se agotó el stock especial
+				if (tazasEspecialesRestantes <= 0) {
+					btnEspecial.disabled = true;
+					btnEspecial.textContent = "Agotado por el día de hoy";
+				}
+
+				// Deshabilitar botón si se agotó la cata
+				if (cuposCataRestantes <= 0) {
+					btnCata.disabled = true;
+					btnCata.textContent = "Cata Completa";
+				}
+			}
+
+			function mostrarMensaje(element, texto, esError = false) {
+				element.textContent = texto;
+				element.className = "msg-box " + (esError ? "error" : "success");
+			}
+
+			// --- MANEJO DE EVENTOS DE FORMULARIO: RESERVAS ESPECIALES ---
+			formEspecial.addEventListener("submit", function (e) {
+				e.preventDefault();
+
+				const metodo = metodoSelect.value;
+				const cantidad = parseInt(cantidadTazasInput.value, 10);
+				const nombre = nombreClienteInput.value.trim();
+
+				// Validación 1: Verificar que se seleccione método
+				if (!metodo) {
+					mostrarMensaje(
+						msgEspecial,
+						"Por favor, selecciona un método de preparación.",
+						true,
+					);
+					return;
+				}
+
+				// Validación 2: Máximo 2 tazas por persona (Regla del negocio)
+				if (cantidad > LIMITE_MAX_POR_PERSONA) {
+					mostrarMensaje(
+						msgEspecial,
+						`Regla del café: Máximo ${LIMITE_MAX_POR_PERSONA} tazas especiales por persona.`,
+						true,
+					);
+					return;
+				}
+
+				if (cantidad <= 0) {
+					mostrarMensaje(
+						msgEspecial,
+						"La cantidad de tazas debe ser al menos 1.",
+						true,
+					);
+					return;
+				}
+
+				// Validación 3: Stock global diario disponible
+				if (cantidad > tazasEspecialesRestantes) {
+					mostrarMensaje(
+						msgEspecial,
+						`Solo quedan ${tazasEspecialesRestantes} tazas especiales disponibles hoy.`,
+						true,
+					);
+					return;
+				}
+
+				// Procesar reserva con éxito
+				tazasEspecialesRestantes -= cantidad;
+				const totalUSD = cantidad * PRECIOS[metodo];
+
+				actualizarUI();
+				mostrarMensaje(
+					msgEspecial,
+					`¡Reserva confirmada para ${nombre}! Método: ${metodo} (${cantidad} tazas). Total: $${totalUSD} USD. ¡Ookini!`,
+				);
+
+				// Limpiar campos opcionales del formulario
+				nombreClienteInput.value = "";
+				cantidadTazasInput.value = 1;
+			});
+
+			// --- MANEJO DE EVENTOS DE FORMULARIO: CATA SEMANAL ---
+			formCata.addEventListener("submit", function (e) {
+				e.preventDefault();
+
+				const cuposSolicitados = parseInt(cuposCataInput.value, 10);
+				const nombre = nombreCataInput.value.trim();
+
+				if (cuposSolicitados <= 0) {
+					mostrarMensaje(msgCata, "Debes reservar al menos 1 cupo.", true);
+					return;
+				}
+
+				// Validación: Verificar cupos disponibles para la cata (Regla del negocio: Máx 8)
+				if (cuposSolicitados > cuposCataRestantes) {
+					mostrarMensaje(
+						msgCata,
+						`Solo quedan ${cuposCataRestantes} cupo(s) disponibles para la cata.`,
+						true,
+					);
+					return;
+				}
+
+				// Procesar reserva de cata con éxito
+				cuposCataRestantes -= cuposSolicitados;
+				const totalUSD = cuposSolicitados * PRECIOS["Cata"];
+
+				actualizarUI();
+				mostrarMensaje(
+					msgCata,
+					`¡Cata reservada para ${nombre}! ${cuposSolicitados} cupo(s). Total: $${totalUSD} USD. Te esperamos.`,
+				);
+
+				// Limpiar formulario
+				nombreCataInput.value = "";
+				cuposCataInput.value = 1;
+			});
+
+			// Inicializar UI al cargar
+			actualizarUI();
+		</script>
+	</body>
+</html>
