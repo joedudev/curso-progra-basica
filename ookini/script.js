@@ -13,11 +13,11 @@ function calcularPrecio(precioUnitario, cantidad) {
 /**
  * Evalúa si hay disponibilidad suficiente para procesar una reserva.
  *
- * @param {number} tazasDiponibles - La cantidad actual de tazas disponibles.
+ * @param {number} tazasDisponibles - La cantidad actual de tazas disponibles.
  * @returns {boolean} Devuelve `true` si hay al menos una taza disponible; de lo contrario `false`.
  */
-function puedeReservar(tazasDiponibles) {
-	return tazasDiponibles >= 1;
+function puedeReservar(tazasDisponibles) {
+	return tazasDisponibles >= 1;
 }
 
 // Selección de elementos del DOM mediante querySelector
@@ -29,17 +29,23 @@ botonReservar.addEventListener("click", function () {
 	// Convertimos el texto del contador a un valor de tipo número
 	const tazasActuales = Number(contadorTazas.textContent);
 
-	// Verificamos si aún se puede reservar
+	// Verificamos si hay al menos 1 taza para reservar
 	if (puedeReservar(tazasActuales)) {
 		const tazasRestantes = tazasActuales - 1;
-		// Actualizamos el DOM con la nueva cantidad de tazas
 		contadorTazas.textContent = tazasRestantes;
-		// alert("¡Reserva exitosa! Disfruta tu taza de café.");
+
+		// Si tras la reserva nos quedamos sin tazas, bloqueamos el botón inmediatamente
+		if (tazasRestantes === 0) {
+			contadorTazas.textContent = "No hay reservas disponibles";
+			botonReservar.textContent = "Sin Cupos";
+			botonReservar.disabled = true;
+		}
 	} else {
-		// Si ya no quedan tazas, deshabilitamos el botón y notificamos al usuario
+		// Caso de respaldo por si el botón vuelve a ser presionado cuando está deshabilitado o en 0
 		botonReservar.textContent = "Sin Cupos";
+		contadorTazas.textContent = "No hay reservas disponibles";
+
 		botonReservar.disabled = true;
-		contadorTazas.textContent = "Ya no hay tazas disponibles";
 		alert("Lo sentimos, no hay tazas disponibles para reservar.");
 	}
 });
