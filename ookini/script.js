@@ -20,32 +20,57 @@ function puedeReservar(tazasDisponibles) {
 	return tazasDisponibles >= 1;
 }
 
-// Selección de elementos del DOM mediante querySelector
+/**
+ * Calcula la nueva cantidad de tazas tras realizar una reserva.
+ *
+ * @param {number} tazasActuales - La cantidad de tazas antes de la reserva.
+ * @returns {number} La nueva cantidad de tazas restantes.
+ */
+function restarCupo(tazasActuales) {
+	return tazasActuales - 1;
+}
+
+/**
+ * Actualiza los elementos del DOM (interfaz de usuario) con los nuevos valores
+ * y ajusta el estado del botón cuando ya no quedan cupos.
+ *
+ * @param {number} tazasRestantes - El número de tazas disponibles para mostrar.
+ * @param {HTMLElement} elementoContador - El elemento HTML donde se muestra la cantidad de tazas.
+ * @param {HTMLButtonElement} elementoBoton - El botón HTML encargado de realizar la reserva.
+ */
+function actualizarEstadoDOM(tazasRestantes, elementoContador, elementoBoton) {
+	if (tazasRestantes > 0) {
+		elementoContador.textContent = tazasRestantes;
+	} else {
+		// Cuando se llega a 0 tazas, se muestra el mensaje de agotado y se deshabilita el botón
+		elementoContador.textContent = "No hay reservas disponibles";
+		elementoBoton.textContent = "Sin Cupos";
+		elementoBoton.disabled = true;
+	}
+}
+
+/**
+ * Controla la lógica de la reserva al interactuar con la interfaz.
+ *
+ * @param {HTMLElement} elementoContador - El elemento que contiene las tazas actuales.
+ * @param {HTMLButtonElement} elementoBoton - El botón de reserva presionado.
+ */
+function manejarReserva(elementoContador, elementoBoton) {
+	const tazasActuales = Number(elementoContador.textContent);
+
+	if (puedeReservar(tazasActuales)) {
+		const tazasRestantes = restarCupo(tazasActuales);
+		actualizarEstadoDOM(tazasRestantes, elementoContador, elementoBoton);
+	} else {
+		alert("Lo sentimos, no hay tazas disponibles para reservar.");
+	}
+}
+
+// Selección de elementos del DOM
 const botonReservar = document.querySelector("#boton-reservar");
 const contadorTazas = document.querySelector(".contador-tazas");
 
-// Asignación de un evento al hacer clic en el botón de reserva
+// Escuchador de eventos vinculado a la función orquestadora
 botonReservar.addEventListener("click", function () {
-	// Convertimos el texto del contador a un valor de tipo número
-	const tazasActuales = Number(contadorTazas.textContent);
-
-	// Verificamos si hay al menos 1 taza para reservar
-	if (puedeReservar(tazasActuales)) {
-		const tazasRestantes = tazasActuales - 1;
-		contadorTazas.textContent = tazasRestantes;
-
-		// Si tras la reserva nos quedamos sin tazas, bloqueamos el botón inmediatamente
-		if (tazasRestantes === 0) {
-			contadorTazas.textContent = "No hay reservas disponibles";
-			botonReservar.textContent = "Sin Cupos";
-			botonReservar.disabled = true;
-		}
-	} else {
-		// Caso de respaldo por si el botón vuelve a ser presionado cuando está deshabilitado o en 0
-		botonReservar.textContent = "Sin Cupos";
-		contadorTazas.textContent = "No hay reservas disponibles";
-
-		botonReservar.disabled = true;
-		alert("Lo sentimos, no hay tazas disponibles para reservar.");
-	}
+	manejarReserva(contadorTazas, botonReservar);
 });
