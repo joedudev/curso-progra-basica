@@ -4,19 +4,25 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Ookini</title>
+		<!-- Hoja de estilos externa que define la apariencia visual del sitio -->
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
+		<!-- Encabezado principal del sitio web con navegación -->
 		<header>
 			<h1>Ookini</h1>
 			<h2>Café de especialidad</h2>
+			<!-- Menú de navegación con enlaces internos (anclas) -->
 			<nav>
 				<a href="#nosotros">Nosotros</a>
 				<a href="#metodos">Métodos</a>
 				<a href="#contacto">Contacto</a>
 			</nav>
 		</header>
+
+		<!-- Contenido principal de la página -->
 		<main>
+			<!-- Sección de presentación sobre la cafetería -->
 			<p id="nosotros">
 				Ookini significa gracias en Kansai, la región de Japón donde están Kioto
 				y Osaka, y donde nació el método Kyoto drip que preparamos en barra. Es
@@ -29,6 +35,8 @@
 				la atención que cada taza merece. Nada se hace de prisa, y nada se hace
 				en piloto automático.
 			</p>
+
+			<!-- Sección de los métodos de preparación disponibles -->
 			<section id="metodos">
 				<h2>Métodos de preparación</h2>
 				<h3 class="metodo-titulo">V60</h3>
@@ -60,11 +68,15 @@
 					lo pides. <span class="precio">$3</span>
 				</p>
 			</section>
+
+			<!-- Sección interactiva para las reservas de tazas de café -->
 			<section id="reservas">
 				<p>Tazas disponibles hoy: <span class="contador-tazas">50</span></p>
 				<button id="boton-reservar">Reservar una taza</button>
 			</section>
 		</main>
+
+		<!-- Pie de página con imagen e información de contacto/horario -->
 		<footer id="contacto">
 			<img
 				src="ookini-barra.jpg"
@@ -76,6 +88,8 @@
 				<p id="frase">Hecho con ♥️ para los amantes del ☕</p>
 			</div>
 		</footer>
+
+		<!-- Vinculación del archivo de JavaScript para agregar interactividad -->
 		<script src="script.js"></script>
 	</body>
 </html>
